@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy {
-
-  public int hp;
+  // EnemyManagerで言及したやつ
+  //public int hp;
+  [SerializeField]
+  private int hp;
 
   public Enemy () {
+    // これ this.hp = this.hp してるよ
     this.hp = hp;
   }
 
