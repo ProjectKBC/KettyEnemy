@@ -2262,8 +2262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3181e224caa4b0ab5a6d102fbe75e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  len: 10
+  len: 30
   enemy_pre: {fileID: 100000, guid: cad765591f3a1aa468901518c6a0fbed, type: 3}
+  test_flg: 0
 --- !u!4 &1138853482
 Transform:
   m_ObjectHideFlags: 0
