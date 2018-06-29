@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour {
+//[System.Serializable]
+public class EnemyManager : MonoBehaviour{
 
-  public int len;
+  [SerializeField]
+  private int len;
   public GameObject enemy_pre;
-  private List<GameObject> enemys = new List<GameObject> ();
+  private List<GameObject> enemys;
   private int count = 0;
 
-  public bool test_flg = false; //作られてることが目に見えるようにするためのテスト用flg
-
   void Start () {
+    enemys = new List<GameObject> ();
     for (int i = 0; i < len; i++) {
       CreateEnemy (false, -i);
     }
@@ -25,9 +26,9 @@ public class EnemyManager : MonoBehaviour {
       Debug.Log(enemys.Count);
     }
     if (Input.GetKey (KeyCode.F)) {
-      foreach (GameObject obj in enemys) {
-        if (obj.activeSelf) {
-          obj.SetActive (false);
+      for (int i = 0; i < enemys.Count; i ++) {
+        if (enemys[i].activeSelf) {
+          enemys[i].SetActive (false);
           break;
         }
       }
@@ -35,10 +36,10 @@ public class EnemyManager : MonoBehaviour {
   }
 
   GameObject GetEnemy () {
-    foreach (GameObject obj in enemys) {
-      if (!obj.activeSelf) {
-        obj.SetActive(true);
-        return obj;
+    for (int i = 0; i < enemys.Count; i++) {
+      if (enemys [i].activeSelf) {
+        enemys [i].SetActive (true);
+        return enemys [i];
       }
     }
     CreateEnemy (true, 1 * count);
