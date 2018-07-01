@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class EnemyManager : MonoBehaviour {
+public class EnemyManager {
 
-  [SerializeField]
-  private int len = 30;
+  //[SerializeField]
+  //private int len = 30;
   public GameObject enemy_pre;
   [SerializeField]
-  private Dictionary<string, GameObject> enemy_wave;
+  public Dictionary<string, GameObject> enemy_waves;
+  public Dictionary<string, GameObject> pool_enemy_waves;
   private List<GameObject> enemys;
-  private int count = 0;
+  //private int count = 0;
 
   private static EnemyManager instance = null;
 
@@ -27,14 +28,18 @@ public class EnemyManager : MonoBehaviour {
     }
   }
 
-  void Start () {
-    enemys = new List<GameObject> ();
-    for (int i = 0; i < len; i++) {
-      CreateEnemy (false, -i);
+  protected EnemyManager () {
+    
+  }
+
+  public void Start () {
+    foreach (KeyValuePair<string, GameObject> w in EnemyManager.Instance.enemy_waves) {
+      GManager.Instance.Create (w.Key, w.Value);
     }
   }
 
-  void Update () {
+  /*
+  public void Update () {
     if (Input.GetKey (KeyCode.T)) {
       count++;
       GameObject ene;
@@ -50,7 +55,9 @@ public class EnemyManager : MonoBehaviour {
       }
     }
   }
+  */
 
+  /*
   GameObject GetEnemy () {
     for (int i = 0; i < enemys.Count; i++) {
       if (enemys [i].activeSelf == false) {
@@ -58,10 +65,11 @@ public class EnemyManager : MonoBehaviour {
         return enemys [i];
       }
     }
-    CreateEnemy (true, 1 * count);
+    GManager.CreateEnemy (true, 1 * count);
     return enemys [enemys.Count - 1];
   }
-
+  */
+  /*
   void CreateEnemy (bool flg, int y) {
     GameObject enemy;
     enemy = (GameObject)Instantiate (enemy_pre, new Vector3 (this.transform.position.x, y, this.transform.position.z), Quaternion.identity);
@@ -70,5 +78,6 @@ public class EnemyManager : MonoBehaviour {
     enemy.transform.parent = this.transform;
     enemys.Add (enemy);
   }
+  */
 
 }
