@@ -2173,7 +2173,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   e_sc:
-    enemy_pre: {fileID: 0}
+    waves_model:
+    - {fileID: 1392920957795520, guid: 90c06fa2f66e44eeaac1197dd3dedf14, type: 2}
+    - {fileID: 1507654870584630, guid: c15b12f8f04c6463bb9ed838141e7b34, type: 2}
+    waves: []
+  a_sc:
+    appear_prefab: {fileID: 1581753919187614, guid: f53e82fa517e54ad6892aad596e89d14,
+      type: 2}
+    appear_obj: {fileID: 0}
 --- !u!4 &1099128589
 Transform:
   m_ObjectHideFlags: 0

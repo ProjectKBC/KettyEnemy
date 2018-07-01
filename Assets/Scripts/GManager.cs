@@ -5,10 +5,10 @@ using UnityEngine;
 public class GManager : MonoBehaviour
 {
   private static GManager instan = null;
-  public EnemyManager e_sc;
+  public EnemyManager e_sc = EnemyManager.Instance;
+  public AppearManager a_sc = AppearManager.Instance;
 
-  private EnemyManager inst;
-  private int x = 10, y = 0, z = 10;
+  private int x = 0, y = 0, z = 0;
 
   public static GManager Instance {
     get {
@@ -27,25 +27,19 @@ public class GManager : MonoBehaviour
   }
 
 	void Start () {
-    EnemyManager.Instance.Start ();
-    /*
-    inst = EnemyManager.Instance;
-    foreach(KeyValuePair<string, GameObject> w in inst.enemy_waves) {
-      Create (w.Key, w.Value);
-    }
-    */
+    AppearManager.Instance.appear_obj = Instantiate (AppearManager.Instance.appear_prefab, new Vector3 (0, 0, 0), Quaternion.identity);
+    EnemyManager.Instance.Init ();
 	}
 	
 	void Update () {
 		
 	}
 
-  public void Create (string s, GameObject obj) {
+  public void CreateWave (GameObject obj) {
     GameObject wave;
-    wave = (GameObject)Instantiate (obj, new Vector3 (x, y, z), Quaternion.identity);
-    wave.transform.localScale = new Vector3 (30, 30, 30);
+    wave = (GameObject)Instantiate (obj, new Vector3 (x, y, z), Quaternion.identity, AppearManager.Instance.appear_obj.transform);
+    wave.transform.localScale = new Vector3 (1, 1, 1);
     wave.gameObject.SetActive (false);
-    wave.transform.parent = this.transform;
-    inst.pool_enemy_waves.Add (s, wave);
+    EnemyManager.Instance.waves.Add (wave);
   }
 }
