@@ -2,30 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class EnemyManager : MonoBehaviour {
+public class EnemyEscape : MonoBehaviour {
 
   [SerializeField]
   private int len = 30;
   public GameObject enemy_pre;
-  [SerializeField]
-  private Dictionary<string, GameObject> enemy_wave;
+  public List<GameObject> enemyWaves;
   private List<GameObject> enemys;
   private int count = 0;
-
-  private static EnemyManager instance = null;
-
-  public static EnemyManager Instance {
-    get {
-      if (instance == null) {
-        instance = new EnemyManager ();
-      }
-      return instance;
-    }
-    set {
-      
-    }
-  }
 
   void Start () {
     enemys = new List<GameObject> ();
@@ -39,12 +23,12 @@ public class EnemyManager : MonoBehaviour {
       count++;
       GameObject ene;
       ene = GetEnemy ();
-      Debug.Log(enemys.Count);
+      Debug.Log (enemys.Count);
     }
     if (Input.GetKey (KeyCode.F)) {
-      for (int i = 0; i < enemys.Count; i ++) {
-        if (enemys[i].activeSelf) {
-          enemys[i].SetActive (false);
+      for (int i = 0; i < enemys.Count; i++) {
+        if (enemys [i].activeSelf) {
+          enemys [i].SetActive (false);
           break;
         }
       }
@@ -53,7 +37,7 @@ public class EnemyManager : MonoBehaviour {
 
   GameObject GetEnemy () {
     for (int i = 0; i < enemys.Count; i++) {
-      if (enemys [i].activeSelf == false) {
+      if (enemys [i].activeSelf) {
         enemys [i].SetActive (true);
         return enemys [i];
       }
@@ -70,5 +54,4 @@ public class EnemyManager : MonoBehaviour {
     enemy.transform.parent = this.transform;
     enemys.Add (enemy);
   }
-
 }

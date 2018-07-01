@@ -8,7 +8,7 @@ public class GManager : MonoBehaviour
   private EnemyManager enemyManager;
 
 	void Start () {
-		
+    //enemyManager.enemyWaves
 	}
 	
 	void Update () {
