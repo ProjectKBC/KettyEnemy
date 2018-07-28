@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33695733727858616}
   - component: {fileID: 23684544632052076}
   - component: {fileID: 95662529152891016}
+  - component: {fileID: 114021705744874934}
   m_Layer: 0
   m_Name: zako1 (1)
   m_TagString: Untagged
@@ -55,6 +56,7 @@ GameObject:
   - component: {fileID: 33061053915345374}
   - component: {fileID: 23506404179463646}
   - component: {fileID: 95334234682001914}
+  - component: {fileID: 114410910050963032}
   m_Layer: 0
   m_Name: zako1 (2)
   m_TagString: Untagged
@@ -73,6 +75,7 @@ GameObject:
   - component: {fileID: 33619617548577090}
   - component: {fileID: 23219014967371840}
   - component: {fileID: 95593080677192436}
+  - component: {fileID: 114284482097412408}
   m_Layer: 0
   m_Name: zako1
   m_TagString: Untagged
@@ -324,3 +327,60 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114021705744874934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1305295006624372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9486259514f494686acedb82b71d6f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 0
+  fix_hp: 3
+  enemy_speed: 1
+  nomal_bullet_speed: 1.2
+  nomal_bullet: {fileID: 1736646011263922, guid: 7495a7d497dca457f94b35ffaec58ed5,
+    type: 2}
+  nomal_bullets: []
+  interval: 2
+--- !u!114 &114284482097412408
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1675453728781404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9486259514f494686acedb82b71d6f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 0
+  fix_hp: 3
+  enemy_speed: 1
+  nomal_bullet_speed: 1.2
+  nomal_bullet: {fileID: 1736646011263922, guid: 7495a7d497dca457f94b35ffaec58ed5,
+    type: 2}
+  nomal_bullets: []
+  interval: 2
+--- !u!114 &114410910050963032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1651730702597262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9486259514f494686acedb82b71d6f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 0
+  fix_hp: 3
+  enemy_speed: 1
+  nomal_bullet_speed: 1.2
+  nomal_bullet: {fileID: 1736646011263922, guid: 7495a7d497dca457f94b35ffaec58ed5,
+    type: 2}
+  nomal_bullets: []
+  interval: 2

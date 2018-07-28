@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GManager : MonoBehaviour
-{
+public class GManager : MonoBehaviour {
   private static GManager instan = null;
-  public EnemyManager e_sc = EnemyManager.Instance;
-  public AppearManager a_sc = AppearManager.Instance;
 
-  private int x = 0, y = 0, z = 0;
+  public EnemyManager e_sc = EnemyManager.Instance;
+  public GameObject e_mana_pre;
+  public static GameObject e_mana;
 
   public static GManager Instance {
     get {
@@ -22,24 +21,31 @@ public class GManager : MonoBehaviour
     }
   }
 
+  /*
   protected GManager () {
 
   }
+  */
 
 	void Start () {
-    AppearManager.Instance.appear_obj = Instantiate (AppearManager.Instance.appear_prefab, new Vector3 (0, 0, 0), Quaternion.identity);
-    EnemyManager.Instance.Init ();
+    //AppearManager.Instance.Init ();
+    //Vector3 test = new Vector3 (0.0f, 0.0f, 10.0f);
+    //Instantiate (AppearManager.Instance.appear_prefab, test, Quaternion.identity);
+    //AppearManager.Instance.appear_obj.transform.localScale = new Vector3 (1, 1, 1);
+    //e_mana = Instantiate (e_mana_pre, new Vector3 (0.0f, 0.0f, 100.0f), Quaternion.identity);
+    //EnemyManager.Instance.Init ();
 	}
 	
 	void Update () {
-		
+    //Debug.Log (AppearManager.Instance.appear_obj.transform.position + "絶対座標");
+    //Debug.Log (AppearManager.Instance.appear_obj.transform.localPosition + "親から見た座標");
 	}
 
-  public void CreateWave (GameObject obj) {
-    GameObject wave;
-    wave = (GameObject)Instantiate (obj, new Vector3 (x, y, z), Quaternion.identity, AppearManager.Instance.appear_obj.transform);
-    wave.transform.localScale = new Vector3 (1, 1, 1);
-    wave.gameObject.SetActive (false);
-    EnemyManager.Instance.waves.Add (wave);
+  /*
+  public void CreateAppear (GameObject obj) {
+    GManager.Instance.appear_machine = (GameObject)Instantiate (obj, new Vector3 (0.0f, 0.0f, 10.0f), Quaternion.identity);
+    Debug.Log (GManager.Instance.appear_machine + "aaa");
+    GManager.Instance.appear_machine.transform.localScale = new Vector3 (1, 1, 1);
   }
+  */
 }

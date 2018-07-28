@@ -24,6 +24,10 @@ public class AppearManager {
     }
   }
 
+  public void Init () {
+    //GManager.Instance.CreateAppear (appear_prefab);
+  }
+
   protected AppearManager () {
 
   }
