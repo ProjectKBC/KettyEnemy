@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Enemy : MonoBehaviour{
+public class Enemy : MonoBehaviour {
   //未着手
 
   [HideInInspector]
@@ -15,8 +15,8 @@ public class Enemy : MonoBehaviour{
   [HideInInspector]
   public List<GameObject> nomal_bullets;
   private float time;
-  private int pass;
-  public int interval = 2;
+  private float pass;
+  public float interval = 1.5f;
 
   private const int bulletPool = 10;
 
@@ -26,20 +26,17 @@ public class Enemy : MonoBehaviour{
 
   private void Awake () {
     hp = fix_hp;
-    Debug.Log (nomal_bullet);
     for (int i = 0; i < bulletPool; i++) {
       nomal_bullets.Add (CreateBullet (nomal_bullet));
     }
   }
 
-  private void Start () {
-    
-  }
-
   private void Update () {
     time += Time.deltaTime;
-    if (Mathf.Floor (time) % interval == 0) {
+    if (Mathf.Floor (time * 10) / 10 / interval >= (pass % nomal_bullets.Count)) {
+      Debug.Log (time);
       Appear ();
+      pass += interval;
     }
     IsBorn ();
     NomalAttack ();
@@ -71,8 +68,7 @@ public class Enemy : MonoBehaviour{
     GameObject bullet;
     bullet = (GameObject)Instantiate (obj);
     bullet.transform.parent = this.transform;
-    bullet.transform.position = new Vector3 (0, 0, 200);
-    bullet.gameObject.SetActive (false);
+    Hide (bullet);
     return bullet;
   }
 
@@ -80,6 +76,7 @@ public class Enemy : MonoBehaviour{
     for (int i = 0; i < nomal_bullets.Count; i ++) {
       if (!nomal_bullets[i].gameObject.activeSelf) {
         nomal_bullets [i].gameObject.SetActive (true);
+        nomal_bullets [i].transform.position = this.transform.position;
         break;
       }
     }
@@ -89,7 +86,7 @@ public class Enemy : MonoBehaviour{
     for (int i = 0; i < nomal_bullets.Count; i++) {
       if (nomal_bullets [i].gameObject.activeSelf) {
         nomal_bullets [i].transform.position =
-                      new Vector3 (0, 0, nomal_bullets [i].transform.position.z - nomal_bullet_speed);
+                           new Vector3 (nomal_bullets[i].transform.position.x, 0, nomal_bullets [i].transform.position.z - nomal_bullet_speed);
         if (nomal_bullets[i].transform.position.z < -15) {
           Hide (nomal_bullets [i]);
         }
