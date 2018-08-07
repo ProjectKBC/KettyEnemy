@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public class Enemy : MonoBehaviour {
 
   protected float bottom = -15.0f;
@@ -16,15 +15,33 @@ public class Enemy : MonoBehaviour {
   protected float time;
   protected float pass;
   public float interval = 1.5f;
+  protected const int bulletPool = 10;
 
-  /*
-  public void Quadratic (float passing_x, float passing_z, float max_x, float max_z) {
-    float a = passing_z - max_z / ( (passing_x - max_x) * (passing_x - max_x) );
-    x += speed * 3;
-    z = a * (x - max_x) * (x - max_x) + max_z;
-    transform.position = new Vector3 (x, 0, z);
+  virtual protected void Awake() {
+    hp = fix_hp;
+    time = 0.0f;
+    nomal_bullets = new List<GameObject> ();
+    for (int i = 0; i < bulletPool; i++) {
+      nomal_bullets.Add (CreateBullet (nomal_bullet));
+    }
+    pass = interval;
   }
-  */
+
+  virtual protected void Update () {
+    if (Mathf.Floor (time * 10) / 10 == pass) {
+      BulletAppear ();
+      pass += interval;
+    }
+    Dead ();
+    NomalAttack ();
+    BeyondLine ();
+  }
+
+  virtual protected void OnDisable () {
+    hp = fix_hp;
+    time = 0.0f;
+    pass = interval;
+  }
 
   public void Dead () {
     if (hp <= 0) {

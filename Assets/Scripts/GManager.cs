@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//そのうち使うのかもしれないので残しているだけのクラス
 public class GManager : MonoBehaviour {
   private static GManager instan = null;
 
-  public EnemyManager e_sc = EnemyManager.Instance;
+  //public EnemyManager e_sc = EnemyManager.Instance;
   public GameObject e_mana_pre;
   public static GameObject e_mana;
 

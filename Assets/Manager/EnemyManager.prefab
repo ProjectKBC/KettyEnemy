@@ -53,7 +53,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   straightEnemy: {fileID: 1848483208259512, guid: 298b9b86f5c8f4996bd13bd13bcb92f7,
     type: 2}
-  quadraticEnemy: {fileID: 0}
-  enemyPatterns: 
+  quadraticEnemy: {fileID: 1298580024542198, guid: 9da3a824622444954be80e4612809705,
+    type: 2}
+  circleEnemy: {fileID: 1443050156864698, guid: 12f2fcd41090f48e0829660aca29d7a5,
+    type: 2}
   speed: 0.1
-  interval: 2
+  interval: 4
+  enemyPatterns: 03000000000000000200000000000000

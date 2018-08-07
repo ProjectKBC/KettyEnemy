@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 95496177034472784}
   - component: {fileID: 114179176913012696}
   m_Layer: 0
-  m_Name: zako1
+  m_Name: StraightEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
