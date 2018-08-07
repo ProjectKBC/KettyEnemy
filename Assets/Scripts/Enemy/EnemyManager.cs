@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class EnemyManager : MonoBehaviour {
@@ -12,14 +10,11 @@ public class EnemyManager : MonoBehaviour {
 
   //敵の生成や出現を管理するクラス
 
-  public List<GameObject> waves_model; //waveprefab入れ
-  public WavePattern [] wave_patterns; //出方を記憶するenum配列
-  private Dictionary<string, List<GameObject>> instance_waves; //waveをプールする辞書型配列
-
-  /*
-  [HideInInspector]
-  public List<GameObject> waves;
-  */
+  public GameObject straightEnemy;
+  public GameObject quadraticEnemy;
+  private GameObject [] SEnemys;
+  private GameObject [] QEnemys;
+  public WavePattern [] enemyPatterns; //出方を記憶するenum配列
 
   public float speed = 0.1f;
   public float interval = 2;
@@ -27,9 +22,8 @@ public class EnemyManager : MonoBehaviour {
   private static EnemyManager instance = null;
   private float time;
   private float pass;
-  private int wave_count;
-  [HideInInspector]
-  public static List<GameObject> nomal_bullets;
+  private int patternCount;
+  private int enemy_init = 100;
 
   private const int bulletPool = 100;
 
@@ -41,74 +35,54 @@ public class EnemyManager : MonoBehaviour {
       return instance;
     }
     set {
-      
+
     }
   }
 
   protected EnemyManager () {
-    
+
   }
 
   private void Awake () {
-    instance_waves = new Dictionary<string, List<GameObject>>();
-    pass = interval;
-    for (int i = 0; i < waves_model.Count; i ++) {
-      instance_waves.Add (waves_model[i].name, new List<GameObject> { CreateWave (waves_model [i]), CreateWave (waves_model [i]) });
+    SEnemys = new GameObject [10];
+    QEnemys = new GameObject [10];
+    for (int i = 0; i < 10; i++) {
+      SEnemys [i] = CreateEnemy (straightEnemy);
+      //QEnemys [i] = CreateEnemy (quadraticEnemy);
     }
+    pass = interval;
   }
 
   private void Update () {
     time += Time.deltaTime;
-    if (Mathf.Floor(time * 10) / 10 == pass) {
-      Appear ();
-      wave_count ++;
+    if (Mathf.Floor (time * 10) / 10 == pass) {
+      MoveStraight ();
       pass += interval;
     }
-    Move ();
   }
 
-  public GameObject CreateWave (GameObject obj) {
-    GameObject wave;
-    wave = (GameObject)Instantiate (obj);
-    wave.transform.parent = this.transform;
-    Hide (wave);
-    return wave;
+  public GameObject CreateEnemy (GameObject obj) {
+    GameObject enemy;
+    enemy = (GameObject)Instantiate (obj);
+    enemy.SetActive (false);
+    enemy.transform.parent = this.transform;
+    return enemy;
   }
 
-  public void Appear () {
-    if (wave_count < wave_patterns.Length) {
-      List<GameObject> want_waves = instance_waves [wave_patterns [wave_count].ToString()];
-      for (int i = 0; i < want_waves.Count; i++) {
-        if (!want_waves [i].gameObject.activeSelf) {
-          want_waves [i].transform.position = this.transform.position;
-          want_waves [i].gameObject.SetActive (true);
-          break;
-        }
+  public void MoveStraight () {
+    int count = 0;
+    float x = -2.0f;
+    for (int i = 0; i < SEnemys.Length; i ++) {
+      if (!SEnemys[i].activeSelf) {
+        SEnemys[i].transform.position = new Vector3 (x, this.transform.position.y, this.transform.position.z);
+        SEnemys [i].SetActive (true);
+        x += 2.0f;
+        count++;
+      }
+      if (count >= 3) {
+        break;
       }
     }
-  }
-
-  public void Move () {
-    foreach (KeyValuePair<string, List<GameObject>> obj in instance_waves) {
-      for (int k = 0; k < obj.Value.Count; k++) {
-        if (obj.Value[k].gameObject.activeSelf) {
-          obj.Value [k].transform.position = 
-            new Vector3 (obj.Value [k].transform.position.x, obj.Value [k].transform.position.y, obj.Value [k].transform.position.z - speed);
-        }
-        BottomBorder (obj.Value [k]);
-      }
-    }
-  }
-
-  public void BottomBorder (GameObject wave) {
-    if (wave.transform.position.z < -15) {
-      Hide (wave);
-    }
-  }
-
-  public void Hide (GameObject wave) {
-    wave.transform.position = new Vector3 (0, 0, 100);
-    wave.gameObject.SetActive (false);
   }
 
 }

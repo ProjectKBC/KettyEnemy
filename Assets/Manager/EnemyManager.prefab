@@ -51,10 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3181e224caa4b0ab5a6d102fbe75e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves_model:
-  - {fileID: 1392920957795520, guid: 90c06fa2f66e44eeaac1197dd3dedf14, type: 2}
-  - {fileID: 1507654870584630, guid: c15b12f8f04c6463bb9ed838141e7b34, type: 2}
-  speed: 0.1
-  interval: 4
-  nomal_bullet: {fileID: 1736646011263922, guid: 7495a7d497dca457f94b35ffaec58ed5,
+  straightEnemy: {fileID: 1848483208259512, guid: 298b9b86f5c8f4996bd13bd13bcb92f7,
     type: 2}
+  quadraticEnemy: {fileID: 0}
+  enemyPatterns: 
+  speed: 0.1
+  interval: 2

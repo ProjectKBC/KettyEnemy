@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class Enemy : MonoBehaviour {
-  //未着手
+
+  protected float bottom = -15.0f;
 
   [HideInInspector]
   public int hp;
@@ -12,36 +12,10 @@ public class Enemy : MonoBehaviour {
   public float enemy_speed;
   public float nomal_bullet_speed;
   public GameObject nomal_bullet;
-  [HideInInspector]
-  public List<GameObject> nomal_bullets;
-  private float time;
-  private float pass;
+  protected List<GameObject> nomal_bullets;
+  protected float time;
+  protected float pass;
   public float interval = 1.5f;
-
-  private const int bulletPool = 10;
-
-  public enum MovePattern {
-    quadratic
-  }
-
-  private void Awake () {
-    hp = fix_hp;
-    for (int i = 0; i < bulletPool; i++) {
-      nomal_bullets.Add (CreateBullet (nomal_bullet));
-    }
-  }
-
-  private void Update () {
-    time += Time.deltaTime;
-    if (Mathf.Floor (time * 10) / 10 / interval >= (pass % nomal_bullets.Count)) {
-      Debug.Log (time);
-      Appear ();
-      pass += interval;
-    }
-    IsBorn ();
-    NomalAttack ();
-    Dead ();
-  }
 
   /*
   public void Quadratic (float passing_x, float passing_z, float max_x, float max_z) {
@@ -52,15 +26,15 @@ public class Enemy : MonoBehaviour {
   }
   */
 
-  public void IsBorn () {
-    if (this.transform.parent.gameObject.activeSelf) {
-      this.gameObject.SetActive (true);
+  public void Dead () {
+    if (hp <= 0) {
+      HideEnemy ();
     }
   }
 
-  public void Dead () {
-    if (hp <= 0) {
-      this.gameObject.SetActive (false);
+  public void BeyondLine() {
+    if (this.transform.position.z < bottom) {
+      HideEnemy ();
     }
   }
 
@@ -68,15 +42,15 @@ public class Enemy : MonoBehaviour {
     GameObject bullet;
     bullet = (GameObject)Instantiate (obj);
     bullet.transform.parent = this.transform;
-    Hide (bullet);
+    HideBullet (bullet);
     return bullet;
   }
 
-  public void Appear() {
+  public void BulletAppear() {
     for (int i = 0; i < nomal_bullets.Count; i ++) {
       if (!nomal_bullets[i].gameObject.activeSelf) {
-        nomal_bullets [i].gameObject.SetActive (true);
         nomal_bullets [i].transform.position = this.transform.position;
+        nomal_bullets [i].gameObject.SetActive (true);
         break;
       }
     }
@@ -87,16 +61,21 @@ public class Enemy : MonoBehaviour {
       if (nomal_bullets [i].gameObject.activeSelf) {
         nomal_bullets [i].transform.position =
                            new Vector3 (nomal_bullets[i].transform.position.x, 0, nomal_bullets [i].transform.position.z - nomal_bullet_speed);
-        if (nomal_bullets[i].transform.position.z < -15) {
-          Hide (nomal_bullets [i]);
+        if (nomal_bullets[i].transform.position.z < bottom) {
+          HideBullet (nomal_bullets [i]);
         }
       }
     }
   }
 
-  public void Hide (GameObject bullet) {
-    bullet.transform.position = new Vector3 (0, 0, 200);
+  public void HideEnemy () {
+    this.gameObject.SetActive (false);
+    this.transform.position = new Vector3 (0, 0, 200);
+  }
+
+  public void HideBullet (GameObject bullet) {
     bullet.gameObject.SetActive (false);
+    bullet.transform.position = new Vector3 (0, 0, 200);
   }
 
   public bool IsHit () {
