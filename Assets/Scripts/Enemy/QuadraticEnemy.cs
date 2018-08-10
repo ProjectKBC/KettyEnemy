@@ -8,19 +8,19 @@ public class QuadraticEnemy : Enemy {
 
   override protected void Update () {
     time += Time.deltaTime;
-    QuadraticMove (-12, 10, 12, 3);
+    QuadraticMove (-780.0f, 560.0f, -50.0f, 250.0f);
     base.Update ();
-	}
+  }
 
   override protected void OnDisable () {
     base.OnDisable ();
   }
 
-  protected void QuadraticMove (float passing_x, float passing_z, float max_x, float max_z) {
-    float a = (passing_x - max_x) / ((passing_z - max_z) * (passing_z - max_z));
+  protected void QuadraticMove (float passing_x, float passing_y, float max_x, float max_y) {
+    float a = (passing_x - max_x) / ((passing_y - max_y) * (passing_y - max_y));
     Vector3 pos = this.transform.position;
-    pos.z -= enemy_speed;
-    pos.x = a * (pos.z - max_z) * (pos.z - max_z) + max_x;
+    pos.y -= enemySpeed;
+    pos.x = a * (pos.y - max_y) * (pos.y - max_y) + max_x;
     this.transform.position = pos;
   }
 

@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-
-  protected float bottom = -15.0f;
+  protected float bottom = -600.0f;
 
   [HideInInspector]
   public int hp;
   public int fix_hp;
-  public float enemy_speed;
-  public float nomal_bullet_speed;
-  public GameObject nomal_bullet;
-  protected List<GameObject> nomal_bullets;
+  public float enemySpeed;
+  public float nomalBulletSpeed;
+  public GameObject nomalBullet;
+  protected List<GameObject> nomalBullets;
   protected float time;
   protected float pass;
   public float interval = 1.5f;
@@ -20,9 +20,9 @@ public class Enemy : MonoBehaviour {
   virtual protected void Awake() {
     hp = fix_hp;
     time = 0.0f;
-    nomal_bullets = new List<GameObject> ();
+    nomalBullets = new List<GameObject> ();
     for (int i = 0; i < bulletPool; i++) {
-      nomal_bullets.Add (CreateBullet (nomal_bullet));
+      nomalBullets.Add (CreateBullet (nomalBullet));
     }
     pass = interval;
   }
@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour {
   }
 
   public void BeyondLine() {
-    if (this.transform.position.z < bottom) {
+    if (this.transform.position.y < bottom) {
       HideEnemy ();
     }
   }
@@ -58,28 +58,29 @@ public class Enemy : MonoBehaviour {
   public GameObject CreateBullet (GameObject obj) {
     GameObject bullet;
     bullet = (GameObject)Instantiate (obj);
-    bullet.transform.parent = this.transform;
+    //bullet.transform.parent = this.transform;
     HideBullet (bullet);
     return bullet;
   }
 
   public void BulletAppear() {
-    for (int i = 0; i < nomal_bullets.Count; i ++) {
-      if (!nomal_bullets[i].gameObject.activeSelf) {
-        nomal_bullets [i].transform.position = this.transform.position;
-        nomal_bullets [i].gameObject.SetActive (true);
+    for (int i = 0; i < nomalBullets.Count; i ++) {
+      if (!nomalBullets[i].gameObject.activeSelf) {
+        nomalBullets [i].transform.position = this.transform.position;
+        nomalBullets [i].gameObject.SetActive (true);
         break;
       }
     }
   }
 
   public void NomalAttack () {
-    for (int i = 0; i < nomal_bullets.Count; i++) {
-      if (nomal_bullets [i].gameObject.activeSelf) {
-        nomal_bullets [i].transform.position =
-                           new Vector3 (nomal_bullets[i].transform.position.x, 0, nomal_bullets [i].transform.position.z - nomal_bullet_speed);
-        if (nomal_bullets[i].transform.position.z < bottom) {
-          HideBullet (nomal_bullets [i]);
+    for (int i = 0; i < nomalBullets.Count; i++) {
+      if (nomalBullets [i].gameObject.activeSelf) {
+        Vector3 pos = nomalBullets [i].transform.position;
+        pos.y -= nomalBulletSpeed;
+        nomalBullets [i].transform.position = pos;
+        if (nomalBullets[i].transform.position.y < bottom) {
+          HideBullet (nomalBullets [i]);
         }
       }
     }

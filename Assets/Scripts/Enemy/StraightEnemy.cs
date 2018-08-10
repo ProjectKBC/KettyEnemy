@@ -10,14 +10,14 @@ public class StraightEnemy : Enemy {
     time += Time.deltaTime;
     StraightMove ();
     base.Update ();
-	}
+  }
 
   override protected void OnDisable () {
     base.OnDisable ();
   }
 
   public void StraightMove () {
-    this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y, this.transform.position.z - enemy_speed);
+    this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y - enemySpeed, this.transform.position.z);
   }
 
 }
